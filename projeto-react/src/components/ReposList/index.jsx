@@ -12,20 +12,35 @@ import {
 const ReposList = ({ nomeUsuario }) => {
   const [repos, setRepos] = useState([]);
   const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState(false)
 
   useEffect(() => {
+    console.log("Começou")
+    setErro(false)
     setCarregando(true)
     fetch(`https://api.github.com/users/${nomeUsuario}/repos`)
-      .then(res => res.json())
+      .then(res => {
+        return res.json();
+      })
       .then(resJson => {
-        setCarregando(false)
-        setRepos(resJson)
-    })
+        console.log("resJson criado")
+        setTimeout(() => {
+          setCarregando(false)
+          setRepos(resJson)
+        }, 1000)
+      })
+      .catch(e => {
+        console.log(e)
+        setErro(true)
+      })
   }, [nomeUsuario])
 
-  return (
+  if (erro) {
+    return <h1>Erro 404</h1>
+  } else {
+    return (
     <div className="container">
-      {carregando ? (
+      { carregando ? (
         <h1>Carregando...</h1>
       ) : 
         <ul className={ list }>
@@ -49,8 +64,11 @@ const ReposList = ({ nomeUsuario }) => {
           ))}
         </ul>
       }
+
+      
     </div>
   )
+  }
 }
 
 export default ReposList
