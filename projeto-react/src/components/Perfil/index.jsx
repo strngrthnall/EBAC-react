@@ -2,8 +2,15 @@
 import styles from './Perfil.module.css'
 
 const Perfil = ({ nomeUsuario}) => {
-  const avatar = `https://github.com/${nomeUsuario}.png`
-  const nomeCapital = nomeUsuario.charAt(0).toUpperCase() + nomeUsuario.slice(1)
+  let avatar = ''
+  let nomeCapital = nomeUsuario.charAt(0).toUpperCase() + nomeUsuario.slice(1)
+
+  if (nomeUsuario !== '') {
+    avatar = `https://github.com/${nomeUsuario}.png`
+    
+  } else {
+    nomeCapital = 'Informe um usuário acima'
+  }
 
   return (
     <header className={ styles.header }>

@@ -1,22 +1,21 @@
-// import { useState } from 'react'
-
 import { useState } from 'react'
+
 import Perfil from './components/Perfil'
-// import Formulario from './components/Formulario'
 import ReposList from './components/ReposList'
+import Header from './components/Header'
 
 function App() {
-  // const [formVisivel, setFormVisivel] = useState(true)
   const [nomeUsuario, setNomeUsuario] = useState('')
+
+  const capturaNome = (e) => {
+    setNomeUsuario(e.target.value)
+  }
 
   return (
     <>
-      <input type="text" onBlur={(e) => {
-        setNomeUsuario(e.target.value)
-      }} />
-      
+      <Header enviaEvento={capturaNome} />
 
-      {nomeUsuario.length > 4 && (
+      {nomeUsuario.length > 4 ? (
         <>
           <Perfil
             nomeUsuario={ nomeUsuario }
@@ -25,17 +24,11 @@ function App() {
             nomeUsuario={ nomeUsuario }
           />
         </>
-      )}
-      
-      {/* <button
-        type="button"
-        onClick={() => setFormVisivel(!formVisivel)}
-      >
-        {!formVisivel ? "Abre Formulario" : "Fecha Formulario"}
-      </button>
+      ) : <Perfil
+            nomeUsuario={ nomeUsuario }
+      />
+      }
 
-      {formVisivel && <Formulario />} */}
-      
     </>
   )
 }
