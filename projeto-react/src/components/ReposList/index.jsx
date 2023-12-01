@@ -20,23 +20,27 @@ const ReposList = ({ nomeUsuario }) => {
     setCarregando(true)
     fetch(`https://api.github.com/users/${nomeUsuario}/repos`)
       .then(res => {
-        return res.json();
+        if (res.status !== 200) {
+          setErro(true)
+        } else {
+          return res.json();
+        }
       })
       .then(resJson => {
-        console.log("resJson criado")
         setTimeout(() => {
           setCarregando(false)
           setRepos(resJson)
         }, 1000)
       })
-      .catch(e => {
-        console.log(e)
-        setErro(true)
-      })
   }, [nomeUsuario])
 
   if (erro) {
-    return <h1>Erro 404</h1>
+    return (
+      <div className="container">
+        <h1>Que pena</h1>
+        <h2>O usuário não foi encontrado</h2>
+      </div>
+    )
   } else {
     return (
     <div className="container">
