@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <Header enviaNome={capturaNome} />
+      <Header enviaEvento={capturaNome} />
 
       {nomeUsuario.length > 4 ? (
         <>
